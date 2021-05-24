@@ -1,15 +1,23 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import {useState} from "react";
+import {StyleSheet, TextInput} from 'react-native';
+import {Text, View} from '../components/Themed';
 
 export default function TabOneScreen() {
+  const [text, setText] = useState('');
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <TextInput
+        style={{height: 40}}
+        placeholder="Type here to translate!"
+        onChangeText={text => setText(text)}
+        defaultValue={text}
+      />
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <Text style={{padding: 10, fontSize: 42}}>
+        {text.split(' ').map((word) => word && '🍕').join(' ')}
+      </Text>
     </View>
   );
 }
