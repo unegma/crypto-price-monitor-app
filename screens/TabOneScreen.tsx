@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, StyleSheet, Switch, TextInput, Text} from 'react-native';
+import {Button, StyleSheet, Switch, TextInput, Text, ActivityIndicator} from 'react-native';
 import {View} from '../components/Themed';
 import {useState} from "react";
 import axios from 'axios';
@@ -8,22 +8,27 @@ export default function TabOneScreen() {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [text3, setText3] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
+  const [serverResponse, setServerResponse] = useState("");
   const bodyText = useState("Some Text.");
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const _onPressButton = () => {
+    setIsLoading(true);
     axios.get('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/')
       .then(function (response: any) {
+        const data = response.data;
         console.log(response)
-        const data = response.data;//
-        alert(data);
+        setIsLoading(false);
+        setServerResponse(response.data);
         return;
       })
       .catch(function (error: any) {
-        alert('here22');
         console.log(error);
+        setIsLoading(false);
+        setServerResponse(error.message);
         return;
       });
   }
@@ -59,10 +64,17 @@ export default function TabOneScreen() {
         value={isEnabled}
       />
 
-      <Button
-        onPress={_onPressButton}
-        title="Update"
-      />
+      {isLoading ?
+        <ActivityIndicator size="large"/>
+        :
+        <Button
+          onPress={_onPressButton}
+          title="Update"
+        />
+      }
+
+      <Text numberOfLines={5}>Server Says: {serverResponse}</Text>
+
       {/*<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />*/}
     </View>
   );
