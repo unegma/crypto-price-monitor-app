@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, StyleSheet, Switch, TextInput} from 'react-native';
+import {Button, StyleSheet, Switch, TextInput, Text} from 'react-native';
 import {View} from '../components/Themed';
 import {useState} from "react";
 import axios from 'axios';
@@ -9,6 +9,7 @@ export default function TabOneScreen() {
   const [text2, setText2] = useState("");
   const [text3, setText3] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
+  const bodyText = useState("Some Text.");
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -29,20 +30,22 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+      <Text numberOfLines={5}>{bodyText}</Text>
+
       <TextInput
-        style={inputStyles.input}
+        style={styles.input}
         placeholder="Pairing"
         onChangeText={text => setText1(text)}
         defaultValue={text1}
       />
       <TextInput
-        style={inputStyles.input}
+        style={styles.input}
         placeholder="Low"
         onChangeText={text => setText2(text)}
         defaultValue={text2}
       />
       <TextInput
-        style={inputStyles.input}
+        style={styles.input}
         placeholder="High"
         onChangeText={text => setText3(text)}
         defaultValue={text3}
@@ -80,12 +83,13 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-});
-
-const inputStyles = StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
   },
+  baseText: {
+    fontFamily: "Cochin"
+  },
 });
+
