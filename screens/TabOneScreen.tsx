@@ -8,8 +8,8 @@ export default function TabOneScreen() {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [text3, setText3] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [serverResponse, setServerResponse] = useState("");
   const bodyText = useState("Some Text.");
 
@@ -17,7 +17,12 @@ export default function TabOneScreen() {
 
   const _onPressButton = () => {
     setIsLoading(true);
-    axios.get('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/') // todo remove from hard coded
+    axios.post('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/', { // todo remove from hard coded
+      text1: text1,
+      text2: text2,
+      text3: text3,
+      isEnabled: isEnabled,
+    })
       .then(function (response: any) {
         console.log(response)
         setIsLoading(false);
