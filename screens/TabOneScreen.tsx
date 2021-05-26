@@ -17,7 +17,7 @@ export default function TabOneScreen() {
 
   const _onPressButton = () => {
     setIsLoading(true);
-    axios.get('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/')
+    axios.get('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/') // todo remove from hard coded
       .then(function (response: any) {
         console.log(response)
         setIsLoading(false);
