@@ -1,14 +1,16 @@
 import * as React from 'react';
-import {Button, StyleSheet, TextInput} from 'react-native';
+import {Button, StyleSheet, Switch, TextInput} from 'react-native';
 import {View} from '../components/Themed';
 import {useState} from "react";
 import axios from 'axios';
 
 export default function TabTwoScreen() {
-  const [text1, setText1] = useState('1');
-  const [text2, setText2] = useState('2');
-  const [text3, setText3] = useState('3');
-  const [text4, setText4] = useState('4');
+  const [text1, setText1] = useState("");
+  const [text2, setText2] = useState("");
+  const [text3, setText3] = useState("");
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const _onPressButton = () => {
     axios.get('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/')
@@ -28,28 +30,30 @@ export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <TextInput
-        style={{height: 40}}
-        placeholder="Pairing!"
+        style={inputStyles.input}
+        placeholder="Pairing"
         onChangeText={text => setText1(text)}
         defaultValue={text1}
       />
       <TextInput
-        style={{height: 40}}
+        style={inputStyles.input}
         placeholder="Low"
         onChangeText={text => setText2(text)}
         defaultValue={text2}
       />
       <TextInput
-        style={{height: 40}}
+        style={inputStyles.input}
         placeholder="High"
         onChangeText={text => setText3(text)}
         defaultValue={text3}
       />
-      <TextInput
-        style={{height: 40}}
-        placeholder="High"
-        onChangeText={text => setText4(text)}
-        defaultValue={text4}
+
+      <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
       />
 
       <Button
@@ -75,5 +79,13 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+});
+
+const inputStyles = StyleSheet.create({
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
   },
 });
