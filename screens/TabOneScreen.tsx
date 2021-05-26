@@ -19,7 +19,6 @@ export default function TabOneScreen() {
     setIsLoading(true);
     axios.get('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/')
       .then(function (response: any) {
-        const data = response.data;
         console.log(response)
         setIsLoading(false);
         setServerResponse(response.data);
