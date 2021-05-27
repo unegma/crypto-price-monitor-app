@@ -14,6 +14,7 @@ export default function PairingsScreen() {
   const [serverResponse, setServerResponse] = useState("");
 
   const fetchData = async () => {
+    setIsLoading(true);
     axios.get(API_URL)
       .then(function (response: any) {
         let data = response.data;
@@ -44,7 +45,11 @@ export default function PairingsScreen() {
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-  const _onPressButton = () => {
+  const _onPressRefreshButton = () => {
+    fetchData();
+  }
+
+  const _onPressUpdateButton = () => {
     setIsLoading(true);
     axios.post(API_URL, {
       text1: text1,
@@ -100,10 +105,16 @@ export default function PairingsScreen() {
       {isLoading ?
         <ActivityIndicator size="large"/>
         :
-        <Button
-          onPress={_onPressButton}
-          title="Update"
-        />
+        <>
+          <Button
+            onPress={_onPressUpdateButton}
+            title="Update"
+          />
+          <Button
+          onPress={_onPressRefreshButton}
+          title="Refresh"
+          />
+        </>
       }
 
       <Text numberOfLines={5}>Server Says: {serverResponse}</Text>
