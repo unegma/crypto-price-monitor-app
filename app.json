@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "cryptoPriceMonitor.sdk"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
