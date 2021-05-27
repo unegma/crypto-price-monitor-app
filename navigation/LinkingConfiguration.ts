@@ -12,14 +12,14 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Pairings: {
             screens: {
-              TabOneScreen: 'one',
+              PairingsScreen: 'pairings',
             },
           },
-          TabTwo: {
+          Config: {
             screens: {
-              TabTwoScreen: 'two',
+              ConfigScreen: 'config',
             },
           },
         },
