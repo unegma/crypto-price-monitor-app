@@ -129,8 +129,10 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   input: {
-    height: 40,
+    height: 50,
+    width: 200,
     margin: 12,
+    padding: 5,
     borderWidth: 1,
   },
   baseText: {
