@@ -12,10 +12,8 @@ export default function TabOneScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [serverResponse, setServerResponse] = useState("");
-  const bodyText = useState("Some Text.");
 
-  //useEffect
-  useEffect(() => {
+  const fetchData = async () => {
     axios.get(API_URL)
       .then(function (response: any) {
         let data = response.data;
@@ -37,7 +35,11 @@ export default function TabOneScreen() {
         setServerResponse(error.message);
         return;
       });
-  });
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -66,7 +68,7 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <Text numberOfLines={5}>{bodyText}</Text>
+      <Text numberOfLines={5}>Pairing Tracker</Text>
 
       <TextInput
         style={styles.input}
