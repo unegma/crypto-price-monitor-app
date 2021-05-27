@@ -1,23 +1,50 @@
 import * as React from 'react';
 import {Button, StyleSheet, Switch, TextInput, Text, ActivityIndicator} from 'react-native';
 import {View} from '../components/Themed';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from 'axios';
+const API_URL = "https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/"; // todo remove hard coded
 
 export default function TabOneScreen() {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [text3, setText3] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [serverResponse, setServerResponse] = useState("");
   const bodyText = useState("Some Text.");
+
+  //useEffect
+  useEffect(() => {
+    axios.get(API_URL)
+      .then(function (response: any) {
+        let data = response.data;
+
+        console.log(data)
+        setIsLoading(false);
+        setServerResponse("Received");
+
+        setText1(data.text1);
+        setText2(data.text2);
+        setText3(data.text3);
+        setIsEnabled(data.isEnabled);
+
+        return;
+      })
+      .catch(function (error: any) {
+        console.log(error);
+        setIsLoading(false);
+        setServerResponse(error.message);
+        return;
+      });
+  });
+
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const _onPressButton = () => {
     setIsLoading(true);
-    axios.post('https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/', { // todo remove from hard coded
+    axios.post(API_URL, {
       text1: text1,
       text2: text2,
       text3: text3,
