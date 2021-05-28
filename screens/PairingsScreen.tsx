@@ -7,6 +7,7 @@ const API_URL = "https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/"; 
 
 // todo refactor and add proper auth
 export default function PairingsScreen() {
+  const [label, setLabel] = useState("");
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [text3, setText3] = useState("");
@@ -24,6 +25,7 @@ export default function PairingsScreen() {
         setIsLoading(false);
         setServerResponse("Received");
 
+        setLabel(data.label);
         setText1(data.text1);
         setText2(data.text2);
         setText3(data.text3);
@@ -53,6 +55,7 @@ export default function PairingsScreen() {
   const _onPressUpdateButton = () => {
     setIsLoading(true);
     axios.post(API_URL, {
+      label: label,
       text1: text1,
       text2: text2,
       text3: text3,
@@ -76,6 +79,12 @@ export default function PairingsScreen() {
     <View style={styles.container}>
       <Text numberOfLines={5}>Pairing Tracker</Text>
 
+      <TextInput
+        style={styles.input}
+        placeholder="Label"
+        onChangeText={label => setLabel(label)}
+        defaultValue={label}
+      />
       <TextInput
         style={styles.input}
         placeholder="Pairing"
