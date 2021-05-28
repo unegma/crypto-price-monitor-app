@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 const API_URL = "https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/"; // todo remove hard coded
 
+// todo refactor and add proper auth
 export default function PairingsScreen() {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
