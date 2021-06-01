@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useState} from "react";
 import {StyleSheet, TextInput} from 'react-native';
 import {Text, View} from '../components/Themed';
+// import {API_URL} from '@env';
 
 export default function ConfigScreen() {
   const [text, setText] = useState('');

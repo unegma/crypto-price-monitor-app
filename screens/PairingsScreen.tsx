@@ -3,7 +3,7 @@ import {Button, StyleSheet, Switch, TextInput, Text, ActivityIndicator} from 're
 import {View} from '../components/Themed';
 import {useEffect, useState} from "react";
 import axios from 'axios';
-const API_URL = "https://cafjm4ib00.execute-api.eu-west-2.amazonaws.com/live/"; // todo remove hard coded
+import {API_URL} from '@env';
 
 // todo refactor and add proper auth
 export default function PairingsScreen() {
